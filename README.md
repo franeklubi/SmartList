@@ -6,8 +6,8 @@ SmartList provides an easy way to manage slices of vars of any type.
 
 The most prominent feature of SmartList is a combination of Remove() and Execute().
 
-    * Remove() enables user to specify indexes to-be-removed in the future
-    * Execute() removes items of the indexes specified earlier
+* Remove() enables user to specify indexes to-be-removed in the future
+* Execute() removes items of the indexes specified earlier
 
 # Usage example: #
 ```go

@@ -11,76 +11,76 @@ type SList struct {
 }
 
 // appends a number of elements to a list
-func (SList *SList) Put(elements ...interface{}) {
-    SList.elements = append(SList.elements, elements...)
+func (sl *SList) Put(elements ...interface{}) {
+    sl.elements = append(sl.elements, elements...)
 }
 
 // returns element from a list
-func (SList *SList) Get(index int) (interface{}){
-    return SList.elements[index]
+func (sl *SList) Get(index int) (interface{}){
+    return sl.elements[index]
 }
 
 // replaces element in a list
-func (SList *SList) Sit(index int, element interface{}) {
-    SList.elements[index] = element
+func (sl *SList) Sit(index int, element interface{}) {
+    sl.elements[index] = element
 }
 
 // clears a list out
-func (SList *SList) Clr() {
-    SList.elements = []interface{}{}
-    SList.to_remove = []int{}
+func (sl *SList) Clr() {
+    sl.elements = []interface{}{}
+    sl.to_remove = []int{}
 }
 
 // returns list's length
-func (SList *SList) Len() (int) {
-    return len(SList.elements)
+func (sl *SList) Len() (int) {
+    return len(sl.elements)
 }
 
 // returns all the list's elements
-func (SList *SList) ToList() ([]interface{}) {
-    return SList.elements
+func (sl *SList) ToList() ([]interface{}) {
+    return sl.elements
 }
 
 // adds given indexes to removal queue from the list during execution
-func (SList *SList) Remove(indexes ...int) {
-    SList.to_remove = append(SList.to_remove, indexes...)
+func (sl *SList) Remove(indexes ...int) {
+    sl.to_remove = append(sl.to_remove, indexes...)
 }
 
 // executes a removal of indexes specified using Remove()
-func (SList *SList) Execute() {
+func (sl *SList) Execute() {
 
     // if list's removal queue len is equal to 0 - do nothing
-    if ( len(SList.to_remove) == 0 ) {
+    if ( len(sl.to_remove) == 0 ) {
         return
     }
 
     // turning index removal queue into a set of indexes
-    SList.to_remove = Normalize(SList.to_remove)
+    sl.to_remove = Normalize(sl.to_remove)
 
     // remove elements specified
-    for x := 0; x < len(SList.to_remove); x++ {
-        rm_index := SList.to_remove[x]
+    for x := 0; x < len(sl.to_remove); x++ {
+        rm_index := sl.to_remove[x]
 
         // checking if out of bounds
-        if ( rm_index > len(SList.elements)-1 ) {
+        if ( rm_index > len(sl.elements)-1 ) {
             fmt.Println("Index", rm_index, "out of bounds, omitting")
             continue
         }
 
         // removing element
-        SList.elements = append(SList.elements[:rm_index], SList.elements[rm_index+1:]...)
+        sl.elements = append(sl.elements[:rm_index], sl.elements[rm_index+1:]...)
 
         // decreasing values of the remaining indexes
-        // to fit SList.elements' indexes after an item removal
-        for y := x; y < len(SList.to_remove); y++ {
-            if ( SList.to_remove[y] > rm_index ) {
-                SList.to_remove[y]--
+        // to fit sl.elements' indexes after an item removal
+        for y := x; y < len(sl.to_remove); y++ {
+            if ( sl.to_remove[y] > rm_index ) {
+                sl.to_remove[y]--
             }
         }
     }
 
     // clearing out remove list
-    SList.to_remove = []int{}
+    sl.to_remove = []int{}
 }
 
 // checks if a list of ints contains element specified
